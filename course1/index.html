@@ -19,16 +19,17 @@
     --ochre:#c9955e; --ink:#2b2a26; --ink2:#6d6555;
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html,body{height:100%}
-  body{font-family:'Noto Sans KR',sans-serif;color:var(--ink);background:var(--night);display:flex;justify-content:center}
-  .phone{position:relative;width:100%;max-width:430px;min-height:100dvh;background:var(--hanji);overflow:hidden;display:flex;flex-direction:column}
+  html{height:100%}
+  body{min-height:100%;font-family:'Noto Sans KR',sans-serif;color:var(--ink);background:var(--night);display:flex;justify-content:center}
+  .phone{position:relative;width:100%;max-width:430px;min-height:100vh;min-height:100dvh;background:var(--hanji);display:flex;flex-direction:column}
   .serif{font-family:'Noto Serif KR',serif}
-  .screen{display:none;flex:1;flex-direction:column}
+  .screen{display:none;flex:1 0 auto;flex-direction:column}
   .screen.on{display:flex}
 
   /* ---------- LOCK ---------- */
   #lock{background:linear-gradient(180deg,#0f1830 0%,#1a2749 48%,#31385f 68%,#6d4d60 82%,#c4735f 93%,#e8946b 100%);
-    color:var(--hanji);align-items:center;justify-content:center;text-align:center;padding:40px 32px;position:relative}
+    color:var(--hanji);align-items:center;justify-content:center;text-align:center;position:relative;
+    padding:40px 32px calc(40px + env(safe-area-inset-bottom,0px))}
   .star{position:absolute;border-radius:50%;background:#fff}
   #lock .wordmark, #expired .wordmark{font-family:'Noto Serif KR',serif;font-size:14px;letter-spacing:.9em;text-indent:.45em;opacity:.85;margin-bottom:40px}
   #lock h1{font-family:'Noto Serif KR',serif;font-weight:600;font-size:22px;line-height:1.8;margin-bottom:14px}
@@ -60,7 +61,7 @@
   .topbar .wm{font-family:'Noto Serif KR',serif;font-size:12px;letter-spacing:.7em;text-indent:.35em;opacity:.9}
   .topbar .act-label{font-size:10.5px;letter-spacing:.22em;color:var(--apricot)}
   .topbar .clock{font-family:'Noto Serif KR',serif;font-size:12px;color:rgba(246,239,226,.75);letter-spacing:.06em}
-  .cardwrap{flex:1;display:flex;flex-direction:column;justify-content:center;padding:34px 30px 20px}
+  .cardwrap{flex:1 0 auto;display:flex;flex-direction:column;justify-content:center;padding:34px 30px 20px}
   .card{background:transparent}
   .card .tag{font-size:10.5px;letter-spacing:.3em;color:var(--coral);margin-bottom:18px}
   .card .pace{display:inline-block;font-size:11px;letter-spacing:.08em;color:var(--ochre);border:1px solid rgba(201,149,94,.35);
@@ -69,7 +70,7 @@
   .card h3{font-family:'Noto Serif KR',serif;font-weight:600;font-size:21px;line-height:1.8;margin-bottom:18px;white-space:pre-line}
   .card .body{font-size:13.5px;line-height:2;color:var(--ink2);white-space:pre-line}
   .card .body b{color:var(--ink);font-weight:500}
-  .card.dark-card{background:var(--night);margin:-34px -30px -20px;padding:54px 30px 40px;flex:1;display:flex;flex-direction:column;justify-content:center}
+  .card.dark-card{background:var(--night);margin:-34px -30px -20px;padding:54px 30px 40px;flex:1 0 auto;display:flex;flex-direction:column;justify-content:center}
   .card.dark-card .tag{color:var(--apricot)}
   .card.dark-card h3{color:var(--hanji)}
   .card.dark-card .body{color:rgba(246,239,226,.72)}
@@ -92,7 +93,7 @@
   .hintbox details{border:1px solid rgba(43,42,38,.14);border-radius:4px;padding:12px 16px;margin-bottom:8px;background:rgba(255,255,255,.3)}
   .hintbox summary{font-size:12px;letter-spacing:.2em;color:var(--ochre);cursor:pointer;list-style:none}
   .hintbox p{margin-top:10px;font-size:13px;line-height:1.8;color:var(--ink2)}
-  .navrow{display:flex;gap:12px;padding:18px 30px 30px}
+  .navrow{display:flex;gap:12px;padding:18px 30px calc(30px + env(safe-area-inset-bottom,0px))}
   .navrow button{flex:1;padding:15px;border-radius:3px;font-family:'Noto Sans KR',sans-serif;font-size:13.5px;letter-spacing:.08em;cursor:pointer}
   #prevBtn{background:transparent;border:1px solid rgba(43,42,38,.25);color:var(--ink2)}
   #nextBtn{background:var(--night);border:none;color:var(--hanji);font-weight:500}
@@ -105,7 +106,8 @@
 
   /* ---------- EXPIRED / END ---------- */
   #expired,#fin{background:linear-gradient(180deg,#0f1830 0%,#1a2749 60%,#31385f 100%);color:var(--hanji);
-    align-items:center;justify-content:center;text-align:center;padding:40px 34px;position:relative}
+    align-items:center;justify-content:center;text-align:center;position:relative;
+    padding:40px 34px calc(40px + env(safe-area-inset-bottom,0px))}
   #expired h2,#fin h2{font-family:'Noto Serif KR',serif;font-weight:600;font-size:21px;line-height:1.9;margin-bottom:18px}
   #expired p,#fin p{font-size:13px;line-height:2;opacity:.75;margin-bottom:30px}
   .relight{background:none;border:none;color:rgba(246,239,226,.5);font-size:11.5px;letter-spacing:.15em;text-decoration:underline;cursor:pointer;font-family:'Noto Sans KR',sans-serif}
@@ -135,8 +137,7 @@
 
   <!-- INTRO -->
   <div class="screen" id="intro">
-    <div style="padding:0"></div>
-    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 30px">
+    <div style="flex:1 0 auto;display:flex;flex-direction:column;padding:56px 30px 0">
       <div class="eyebrow">WELCOME</div>
       <h2>어서 오세요.<br>지금부터 90분은,<br>두 분의 것입니다.</h2>
       <div class="rule"><div class="n">一</div><p>이 화면이 오늘의 <b>사이지기</b> — 길과 질문을 함께 챙깁니다. <b>한 분은 사이지기를, 한 분은 지도를</b> 들어주세요. 사이지기를 든 분이 카드를 소리 내어 읽어주시면 됩니다.</p></div>
@@ -145,7 +146,7 @@
       <div class="rule"><div class="n">四</div><p>서두르지 않아도 됩니다. 카드보다 <b>대화가 먼저</b>예요 — 이야기가 흐르고 있다면, 카드는 잠시 잊어버리세요.</p></div>
       <button class="btn" id="startBtn">코스 시작하기</button>
     </div>
-    <div style="padding:22px;text-align:center;font-size:10px;letter-spacing:.2em;color:var(--ink2);opacity:.5">사이 · SAISEOUL.KR</div>
+    <div style="padding:22px 22px calc(28px + env(safe-area-inset-bottom,0px));text-align:center;font-size:10px;letter-spacing:.2em;color:var(--ink2);opacity:.5">사이 · SAISEOUL.KR</div>
   </div>
 
   <!-- COURSE -->
