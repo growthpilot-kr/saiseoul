@@ -288,5 +288,45 @@ src="https://www.facebook.com/tr?id=1597150865440749&ev=PageView&noscript=1"
   </div>
 
 </div>
+
+<!-- 채널 안내 팝업 (2026-07-26) -->
+<style>
+  .sai-notice-overlay{position:fixed;inset:0;background:rgba(15,24,48,.72);z-index:9999;display:flex;align-items:center;justify-content:center;padding:26px;opacity:0;transition:opacity .35s ease}
+  .sai-notice-overlay.on{opacity:1}
+  .sai-notice{position:relative;width:100%;max-width:340px;background:var(--night);color:var(--hanji);border:1px solid rgba(246,239,226,.25);border-radius:6px;padding:44px 30px 34px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+  .sai-notice .ln{font-size:40px;line-height:1;margin-bottom:20px;filter:drop-shadow(0 0 16px rgba(255,150,70,.55))}
+  .sai-notice h3{font-family:'Noto Serif KR',serif;font-weight:600;font-size:19px;line-height:1.6;margin-bottom:16px}
+  .sai-notice p{font-size:13px;line-height:1.85;color:rgba(246,239,226,.85)}
+  .sai-notice p strong{color:var(--apricot);font-weight:500}
+  .sai-notice .btn{display:block;margin-top:24px;background:var(--apricot);color:var(--night);text-decoration:none;font-size:13.5px;font-weight:500;letter-spacing:.08em;padding:14px;border-radius:3px}
+  .sai-notice .x{position:absolute;top:10px;right:10px;background:none;border:none;color:rgba(246,239,226,.6);font-size:22px;line-height:1;padding:8px;cursor:pointer}
+  .sai-notice .later{margin-top:14px;background:none;border:none;color:rgba(246,239,226,.55);font-size:12px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+</style>
+<div class="sai-notice-overlay" id="saiNotice" style="display:none" role="dialog" aria-modal="true" aria-label="채널 안내">
+  <div class="sai-notice">
+    <button class="x" aria-label="닫기" onclick="saiNoticeClose()">&times;</button>
+    <div class="ln">&#127982;</div>
+    <h3>카카오톡 채널이<br>잠시 불을 껐습니다</h3>
+    <p>시스템 연동 문제로 채널 프로필이 초기화되어<br>현재 복구 절차를 진행하고 있어요.<br><strong>모든 매칭과 만남은 평소처럼 진행됩니다.</strong></p>
+    <p style="margin-top:12px">신청·문의·환불 등 빠른 소통이 필요하시면<br>인스타그램 DM으로 편하게 연락 주세요.</p>
+    <a class="btn" href="https://www.instagram.com/saiseoul.kr/" target="_blank" rel="noopener">인스타그램 DM 보내기</a>
+    <button class="later" onclick="saiNoticeClose()">괜찮아요, 둘러볼게요</button>
+  </div>
+</div>
+<script>
+(function(){
+  try{ if(sessionStorage.getItem('saiNoticeSeen')) return; }catch(e){}
+  var o=document.getElementById('saiNotice');
+  o.style.display='flex';
+  requestAnimationFrame(function(){ o.classList.add('on'); });
+})();
+function saiNoticeClose(){
+  var o=document.getElementById('saiNotice');
+  o.classList.remove('on');
+  setTimeout(function(){ o.style.display='none'; },350);
+  try{ sessionStorage.setItem('saiNoticeSeen','1'); }catch(e){}
+}
+</script>
+
 </body>
 </html>
