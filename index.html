@@ -148,7 +148,7 @@ src="https://www.facebook.com/tr?id=1597150865440749&ev=PageView&noscript=1"
     <div class="wordmark">사&nbsp;&nbsp;이</div>
     <h1>두 사람 <em>사이</em>에<br>좋은 대화가 흐르는,<br>90분의 1:1 소개팅.</h1>
     <div class="sub">재직 인증을 거친 25–39 직장인. 결이 맞는<br>한 사람과 — 잘 차려진 90분의 코스에서.</div>
-    <a class="cta" href="https://pf.kakao.com/_mzxgfX/chat">문 두드리기 (신청하기)</a>
+    <a class="cta" href="https://pf.kakao.com/_XTJxnX/chat">문 두드리기 (신청하기)</a>
     <a class="cta ghost" href="#course">어떤 90분인지 먼저 보기</a>
     <div class="season">FIRST SEASON · YONGSAN · 8월 말 첫 만남</div>
   </div>
@@ -276,57 +276,19 @@ src="https://www.facebook.com/tr?id=1597150865440749&ev=PageView&noscript=1"
   <div class="foot" id="apply">
     <div class="eyebrow" style="color:var(--apricot)">APPLY</div>
     <h2>정성껏 준비해 두고,<br>기다리겠습니다.</h2>
-    <a class="cta" href="https://pf.kakao.com/_mzxgfX/chat" style="max-width:280px;margin:32px auto 0">문 두드리기 (신청하기) — 1분</a>
+    <a class="cta" href="https://pf.kakao.com/_XTJxnX/chat" style="max-width:280px;margin:32px auto 0">문 두드리기 (신청하기) — 1분</a>
     <div class="wordmark">사&nbsp;&nbsp;이</div>
     <div class="fine">
       © 2026 사이(SAI) · saiseoul.kr<br><br>
       그로스파일럿(GrowthPilot)<br>
       사업자등록번호 864-09-03078<br>
-      문의 <a href="https://pf.kakao.com/_mzxgfX" style="color:inherit">카카오톡 채널 @saiseoul</a> · <a href="mailto:growthpilot.kr@gmail.com" style="color:inherit">growthpilot.kr@gmail.com</a>
+      문의 <a href="https://pf.kakao.com/_XTJxnX" style="color:inherit">카카오톡 채널 @saiseoul</a> · <a href="mailto:growthpilot.kr@gmail.com" style="color:inherit">growthpilot.kr@gmail.com</a>
       <!-- TODO: 통신판매업 신고번호 발급 후 여기에 추가 -->
     </div>
   </div>
 
 </div>
 
-<!-- 채널 안내 팝업 (2026-07-26) -->
-<style>
-  .sai-notice-overlay{position:fixed;inset:0;background:rgba(15,24,48,.72);z-index:9999;display:flex;align-items:center;justify-content:center;padding:26px;opacity:0;transition:opacity .35s ease}
-  .sai-notice-overlay.on{opacity:1}
-  .sai-notice{position:relative;width:100%;max-width:340px;background:var(--night);color:var(--hanji);border:1px solid rgba(246,239,226,.25);border-radius:6px;padding:44px 30px 34px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.45)}
-  .sai-notice .ln{font-size:40px;line-height:1;margin-bottom:20px;filter:drop-shadow(0 0 16px rgba(255,150,70,.55))}
-  .sai-notice h3{font-family:'Noto Serif KR',serif;font-weight:600;font-size:19px;line-height:1.6;margin-bottom:16px}
-  .sai-notice p{font-size:13px;line-height:1.85;color:rgba(246,239,226,.85)}
-  .sai-notice p strong{color:var(--apricot);font-weight:500}
-  .sai-notice .btn{display:block;margin-top:24px;background:var(--apricot);color:var(--night);text-decoration:none;font-size:13.5px;font-weight:500;letter-spacing:.08em;padding:14px;border-radius:3px}
-  .sai-notice .x{position:absolute;top:10px;right:10px;background:none;border:none;color:rgba(246,239,226,.6);font-size:22px;line-height:1;padding:8px;cursor:pointer}
-  .sai-notice .later{margin-top:14px;background:none;border:none;color:rgba(246,239,226,.55);font-size:12px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
-</style>
-<div class="sai-notice-overlay" id="saiNotice" style="display:none" role="dialog" aria-modal="true" aria-label="채널 안내">
-  <div class="sai-notice">
-    <button class="x" aria-label="닫기" onclick="saiNoticeClose()">&times;</button>
-    <div class="ln">&#127982;</div>
-    <h3>카카오톡 채널이<br>잠시 불을 껐습니다</h3>
-    <p>시스템 연동 문제로 채널 프로필이 초기화되어<br>현재 복구 절차를 진행하고 있어요.<br><strong>모든 매칭과 만남은 평소처럼 진행됩니다.</strong></p>
-    <p style="margin-top:12px">신청·문의·환불 등 빠른 소통이 필요하시면<br>인스타그램 DM으로 편하게 연락 주세요.</p>
-    <a class="btn" href="https://www.instagram.com/saiseoul.kr/" target="_blank" rel="noopener">인스타그램 DM 보내기</a>
-    <button class="later" onclick="saiNoticeClose()">괜찮아요, 둘러볼게요</button>
-  </div>
-</div>
-<script>
-(function(){
-  try{ if(sessionStorage.getItem('saiNoticeSeen')) return; }catch(e){}
-  var o=document.getElementById('saiNotice');
-  o.style.display='flex';
-  requestAnimationFrame(function(){ o.classList.add('on'); });
-})();
-function saiNoticeClose(){
-  var o=document.getElementById('saiNotice');
-  o.classList.remove('on');
-  setTimeout(function(){ o.style.display='none'; },350);
-  try{ sessionStorage.setItem('saiNoticeSeen','1'); }catch(e){}
-}
-</script>
 
 </body>
 </html>
