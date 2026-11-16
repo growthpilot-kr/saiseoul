@@ -104,15 +104,16 @@ fbq('track', 'PageView');
 </div>
 
 <div class="q">
-  <label class="t" for="source">어떻게 알게 되셨나요? <span class="req">(필수)</span></label>
+  <label class="t" for="source">어떻게 알게 되셨나요? <span class="req" style="color:#888">(선택)</span></label>
   <select id="source" name="source">
     <option value="">선택해 주세요</option>
-    <option>인스타그램 게시물</option>
     <option>인스타그램 광고</option>
+    <option>인스타그램 게시물</option>
     <option>지인 소개</option>
-    <option>기타</option>
+    <option>문토</option>
+    <option value="기타">기타 (직접 적기)</option>
   </select>
-  <div class="err" id="e_source">알게 된 경로를 골라 주세요.</div>
+  <input type="text" id="sourceEtc" placeholder="어디에서 보셨는지 적어 주세요" maxlength="50" style="display:none;margin-top:8px">
 </div>
 
 <div class="q">
@@ -143,6 +144,7 @@ fbq('track', 'PageView');
 
 <div id="done">
   <h1>신청서가 접수되었어요</h1>
+  <p class="small" id="saveState" style="margin:0 0 10px">신청서를 저장하고 있어요. 이 화면을 잠시만 열어 두세요.</p>
   <p class="sub">아래 계좌로 참가비를 보내 주시면 신청이 확정돼요.</p>
   <div class="acct">
     <p><b>우리은행 1005-204-881788</b></p>
@@ -177,11 +179,11 @@ $('idPhoto').addEventListener('change', e => {
   if (!file) { $('preview').style.display = 'none'; return; }
   const img = new Image();
   img.onload = () => {
-    const max = 1400, r = Math.min(1, max / Math.max(img.width, img.height));
+    const max = 1000, r = Math.min(1, max / Math.max(img.width, img.height));
     const c = document.createElement('canvas');
     c.width = Math.round(img.width * r); c.height = Math.round(img.height * r);
     c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
-    idData = c.toDataURL('image/jpeg', 0.8);
+    idData = c.toDataURL('image/jpeg', 0.7);
     $('preview').src = idData; $('preview').style.display = 'block';
     URL.revokeObjectURL(img.src);
   };
@@ -198,29 +200,48 @@ $('f').addEventListener('submit', async e => {
   bad = show('e_phone', !/^01[016789]-\d{3,4}-\d{4}$/.test($('phone').value)) || bad;
   bad = show('e_session', !session) || bad;
   bad = show('e_nickname', !$('nickname').value.trim()) || bad;
-  bad = show('e_source', !$('source').value) || bad;
   bad = show('e_id', !idData) || bad;
   bad = show('e_agree', !($('a1').checked && $('a2').checked && $('a3').checked)) || bad;
   if (bad) { document.querySelector('.err[style*="block"]').scrollIntoView({behavior:'smooth', block:'center'}); return; }
 
-  $('btn').disabled = true; $('status').textContent = '보내는 중이에요. 잠시만 기다려 주세요.';
+  const src = $('source').value;
   const payload = {
     name: $('name').value.trim(), phone: $('phone').value, session,
     nickname: $('nickname').value.trim(), oneLine: $('oneLine').value.trim(),
-    source: $('source').value, idImage: idData, agreed: true
+    source: src === '기타' ? '기타: ' + $('sourceEtc').value.trim() : src,
+    idImage: idData, agreed: true
   };
+  // 저장을 기다리지 않고 바로 완료 화면을 보여 주고, 저장은 뒤에서 진행
+  $('payName').textContent = payload.name;
+  $('formWrap').style.display = 'none'; $('done').style.display = 'block'; window.scrollTo(0, 0);
+  send(payload);
+});
+
+let saving = false;
+window.addEventListener('beforeunload', e => { if (saving) { e.preventDefault(); e.returnValue = ''; } });
+async function send(payload) {
+  saving = true;
+  const st = $('saveState');
+  st.style.color = '#888'; st.textContent = '신청서를 저장하고 있어요. 이 화면을 잠시만 열어 두세요.';
   try {
     const res = await fetch(ENDPOINT, { method: 'POST', body: JSON.stringify(payload) });
     const out = await res.json();
     if (!out.ok) throw new Error(out.error || 'fail');
-    $('payName').textContent = payload.name;
-    $('formWrap').style.display = 'none'; $('done').style.display = 'block'; window.scrollTo(0, 0);
+    saving = false;
+    st.style.color = '#1a7f37'; st.textContent = '신청서가 저장됐어요.';
     if (window.fbq) fbq('track', 'CompleteRegistration', { value: 29000, currency: 'KRW' });
     if (window.gtag) gtag('event', 'sign_up', { method: 'shim_apply' });
   } catch (err) {
-    $('btn').disabled = false;
-    $('status').innerHTML = '전송에 실패했어요. 다시 시도해 주시고, 계속 안 되면 <a href="https://open.kakao.com/o/sLPl1oXi" target="_blank" rel="noopener">오픈채팅</a>으로 알려 주세요.';
+    saving = false;
+    st.style.color = '#c0392b';
+    st.innerHTML = '신청서 저장에 실패했어요. <a href="#" id="retry">다시 보내기</a>를 눌러 주시고, 계속 안 되면 오픈채팅으로 알려 주세요.';
+    $('retry').onclick = ev => { ev.preventDefault(); send(payload); };
   }
+}
+$('source').addEventListener('change', () => {
+  const etc = $('source').value === '기타';
+  $('sourceEtc').style.display = etc ? 'block' : 'none';
+  if (etc) $('sourceEtc').focus();
 });
 $('kakaoBtn').addEventListener('click', () => { if (window.fbq) fbq('track', 'Lead'); });
 </script>
