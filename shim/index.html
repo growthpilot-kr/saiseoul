@@ -50,10 +50,11 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1597150865440749');
 fbq('track', 'PageView');
-// 카카오톡 채널 클릭 = Lead 전환
+// 신청서 버튼 클릭 = InitiateCheckout, 오픈채팅 클릭 = Contact
 document.addEventListener('click', function(e){
-  var a = e.target.closest && e.target.closest('a[href*="pf.kakao.com"]');
-  if(a){ fbq('track', 'Lead'); }
+  if(!e.target.closest) return;
+  if(e.target.closest('a[href*="apply"]')){ fbq('track', 'InitiateCheckout', {value:29000, currency:'KRW'}); }
+  if(e.target.closest('a[href*="open.kakao.com"], a[href*="pf.kakao.com"]')){ fbq('track', 'Contact'); }
 });
 </script>
 <noscript><img height="1" width="1" style="display:none"
